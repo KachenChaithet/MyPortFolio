@@ -8,7 +8,7 @@ const SkillsAndExpertise = () => {
         { icon: <Zap className="text-white" />, title: 'Tools & Others', stack: ['Git', 'Docker',] },
     ]
     return (
-        <div className="md:h-[480px] h-[1000px]  bg-[#f9f9fa] flex flex-col items-center justify-center gap-10">
+        <div className="md:h-[480px] h-[1000px] mt-20  bg-[#f9f9fa] flex flex-col items-center justify-center gap-10">
             <div className="flex justify-center items-center flex-col gap-4">
                 <h1 className="font-semibold text-xl">Skills & Expertise</h1>
                 <p className="font-medium text-gray-500">Technologies and tools I use to bring ideas to life</p>

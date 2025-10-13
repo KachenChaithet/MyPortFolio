@@ -4,7 +4,7 @@ import img from '../assets/computer-program-coding-on-screen-PQ79JTA-1-1080x675.
 const Card = () => {
   const stacks = ['React', 'Node.js', 'Tailwind', 'MongoDB', 'Express'] // 👉 เพิ่มได้เรื่อยๆ
   return (
-    <div className="w-[380px] mb-20 h-[480px] rounded-2xl border border-gray-200 mt-10 bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
+    <div className="w-[380px] h-[480px] rounded-2xl border border-gray-200 mt-10 bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
 
       {/* Image */}
       <div className="h-[50%] w-full overflow-hidden">
