@@ -1,7 +1,21 @@
 import { Facebook, Mail, Phone } from "lucide-react"
 import Input from "./Input"
+import { useState } from "react"
 
 const Contect = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+  console.log(formData);
+
   return (
     <div className="w-full h-[700px] flex flex-col items-center justify-around">
       <div className="flex flex-col gap-4 justify-center items-center">
@@ -26,18 +40,21 @@ const Contect = () => {
           <div className="flex flex-col gap-4 mt-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
-                <Input title="Name" placeholder="Your name" />
+                <Input title="Name" placeholder="Your name" value={formData.name} onChange={handleChange} name='name' />
               </div>
               <div className="flex-1">
-                <Input title="Email" placeholder="your.email@example.com" />
+                <Input title="Email" placeholder="your.email@example.com" value={formData.email} onChange={handleChange} name='email' />
               </div>
             </div>
 
-            <Input title="Subject" placeholder="What's this about?" />
+            <Input title="Subject" placeholder="What's this about?" value={formData.subject} onChange={handleChange} name='subject' />
 
             <div className="flex flex-col gap-2">
               <label className="font-medium text-gray-700">Message</label>
               <textarea
+                value={formData.message}
+                onChange={handleChange}
+                name='message'
                 placeholder="Tell me about your project..."
                 className="bg-gray-100 w-full h-[150px] py-3 px-4 rounded-xl outline-0 focus:ring-3 focus:ring-[#d3d3d3]"
               />

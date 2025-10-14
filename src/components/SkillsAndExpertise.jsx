@@ -15,8 +15,8 @@ const SkillsAndExpertise = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {Skills.map((item) => (
-                    <div className="bg-white w-[250px] h-[180px] rounded-2xl border border-gray-200 shadow-sm  hover:shadow-lg transition-all duration-300 flex flex-col justify-around p-4">
+                {Skills.map((item,index) => (
+                    <div key={`skill-${index}`} className=" bg-white w-[250px] h-[180px] rounded-2xl border border-gray-200 shadow-sm  hover:shadow-lg transition-all duration-300 flex flex-col justify-around p-4">
                         <div className="flex items-center gap-4">
                             <div className="w-10 h-10 bg-black rounded-xl flex justify-center items-center">
                                 {item.icon}
@@ -24,9 +24,9 @@ const SkillsAndExpertise = () => {
                             <h1>{item.title}</h1>
                         </div>
                         <div className="flex flex-wrap gap-2 mt-2">
-                            {item.stack.map((item) => (
-                                <span className="border border-gray-300 rounded-full text-sm px-2 ">
-                                    {item}
+                            {item.stack.map((tech,index) => (
+                                <span key={`skillDetail-${index}`} className="border border-gray-300 rounded-full text-sm px-2 ">
+                                    {tech}
                                 </span>
                             ))}
                         </div>

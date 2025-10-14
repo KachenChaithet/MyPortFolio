@@ -15,8 +15,8 @@ const Footer = () => {
                 </div>
 
                 <div className="flex gap-4">
-                    {icon.map((item) => (
-                        <div className="" key={item.icon}>
+                    {icon.map((item, index) => (
+                        <div className="" key={`footer-${index}`}>
                             <a href={item.path} target="_blank">{item.icon}</a>
                         </div>
                     ))}

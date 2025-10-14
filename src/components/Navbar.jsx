@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Menu, Settings, X } from "lucide-react";
 
-const Navbar = ({ scrollToSection, refs }) => {
+const Navbar = ({ scrollToSection, refs, openAdmin }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const menu = [
@@ -25,10 +25,13 @@ const Navbar = ({ scrollToSection, refs }) => {
 
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex items-center font-medium gap-8">
-                    {menu.map((item) => (
+                    {menu.map((item, index) => (
                         <li
-                            key={item.title}
-                            onClick={() => scrollToSection(item.ref)}
+                            key={item.title + index}
+                            onClick={() => item.title === "Settings"
+                                ? openAdmin()
+                                : scrollToSection(item.ref)
+                            }
                             className={` ${item.title === 'Settings' ? 'text-gray-700' : 'text-gray-500'} hover:text-black cursor-pointer transition-colors`}
                         >
                             {item.title != 'Settings' ? item.title : item.icon}
@@ -48,18 +51,22 @@ const Navbar = ({ scrollToSection, refs }) => {
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
                 <div className="md:hidden mt-2 flex flex-col gap-3 bg-white shadow rounded-md p-4">
-                    {menu.map((item) => (
+                    {menu.map((item, index) => (
                         <button
-                            key={item.title}
-                            onClick={() => scrollToSection(item.ref)}
+                            key={item.title + index}
+                            onClick={() => item.title === "Settings"
+                                ? openAdmin()
+                                : scrollToSection(item.ref)
+                            }
                             className="text-gray-500 hover:text-black w-full text-left py-2 transition-colors"
                         >
                             {item.title}
                         </button>
                     ))}
                 </div>
-            )}
-        </nav>
+            )
+            }
+        </nav >
     );
 };
 
