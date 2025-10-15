@@ -7,6 +7,8 @@ import ShowProject from "./components/ShowProject"
 import SkillsAndExpertise from "./components/SkillsAndExpertise"
 import "./index.css"
 import LoginPage from "./components/LoginPage"
+import AdminPage from "./components/AdminPage"
+import { Toaster } from "react-hot-toast"
 
 function App() {
   const heroRef = useRef(null)
@@ -37,9 +39,13 @@ function App() {
   }
 
   if (showLogin && !isAuthenticated) {
-    return <LoginPage onBack={handleBack} />
+
+    return <><LoginPage onBack={handleBack} loginSucess={handleLogin} /> <Toaster position="top-right" reverseOrder={false} /> </>
   }
 
+  if (isAuthenticated) {
+    return <AdminPage logout={handleLogout} />
+  }
   // ฟังก์ชันเลื่อนไปยังแต่ละ section
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({ behavior: "smooth" })
@@ -55,7 +61,7 @@ function App() {
       <div ref={contactRef} className="scroll-mt-12"><Contect /></div>
 
       <Footer />
-
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   )
 }

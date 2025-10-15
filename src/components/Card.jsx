@@ -2,7 +2,10 @@ import { Github, SquareArrowOutUpRight } from 'lucide-react'
 import img from '../assets/computer-program-coding-on-screen-PQ79JTA-1-1080x675.jpg'
 
 const Card = () => {
-  const stacks = ['React', 'Node.js', 'Tailwind', 'MongoDB', 'Express'] // 👉 เพิ่มได้เรื่อยๆ
+  const stacks = ['React', 'Node.js', 'Tailwind', 'MongoDB', 'Express'] 
+  
+
+  
   return (
     <div className="w-[380px] h-[480px] rounded-2xl border border-gray-200 mt-10 bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
 
