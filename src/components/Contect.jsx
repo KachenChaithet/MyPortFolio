@@ -14,7 +14,6 @@ const Contect = () => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
-  console.log(formData);
 
   return (
     <div className="w-full h-[700px] flex flex-col items-center justify-around">

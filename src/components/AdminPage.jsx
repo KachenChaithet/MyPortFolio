@@ -1,18 +1,63 @@
 import { ArrowLeft, LogOut, Plus, Trash2 } from "lucide-react"
 import Input from "./Input"
+import { useContext, useEffect, useState } from "react"
+import AddProject from "./AddProject"
+import { ProjectContext } from "../utils/ProjectContext"
+import axios from "axios"
+import toast from "react-hot-toast"
+import SiteSettings from "./SiteSettings"
+import SkillsManagement from "./SkillsManagement"
 
 const AdminPage = ({ logout }) => {
-    const stacks = ['React', 'Node.js', 'Tailwind', 'MongoDB', 'Express']
+    const { projects, fetchProject } = useContext(ProjectContext)
+    const [Edit, setEdit] = useState(null)
+    const token = localStorage.getItem('token')
+
+
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleLogout = () => {
         logout()
-        localStorage.removeItem('token')
+    }
+
+    const handleDeleteProject = async (id) => {
+
+        try {
+            const res = await axios.delete(`http://localhost:5000/project/delete/${id}`, {
+                headers: {
+                    'token': token
+                }
+            })
+            if (res.data.message) {
+                fetchProject()
+                toast.success(res.data.message || "delete successful")
+            }
+        } catch (error) {
+            toast.error(res.data.message)
+
+        }
     }
 
 
 
+
+
     return (
-        <div className="bg-[#f9f9fa] min-h-screen">
+        <div className={`bg-[#f9f9fa] min-h-screen relative  `}>
+            {isOpen && (
+                <AddProject
+                    onClose={() => {
+                        setIsOpen(false)
+                        setEdit(null)
+                    }}
+                    editData={Edit}
+                    onSuccess={() => {
+                        setIsOpen(false)
+                        setEdit(null)
+                        fetchProject()
+
+                    }} />
+            )}
             {/* Navbar */}
             <div className="h-[100px] bg-white shadow-xs flex items-center justify-between px-10">
                 <div className="flex items-center gap-2">
@@ -72,49 +117,66 @@ const AdminPage = ({ logout }) => {
             </div>
 
             {/* Manage Projects */}
-            <div className="mt-10 px-10 ">
-                <div className="bg-white  rounded-xl p-6 shadow-md border border-gray-300 flex flex-col gap-4">
-                    <div className="flex items-center justify-between ">
-                        <div className="">
-                            <h2 className="text-xl font-semibold mb-2">Manage Projects</h2>
-                            <p className="text-gray-500 ">Add, edit, or remove your portfolio projects</p>
+            <div className="mt-10 px-10">
+                <div className="bg-white rounded-xl shadow-md p-6 border border-gray-300 flex flex-col h-[400px] overflow-hidden">
+
+                    {/* Header */}
+                    <div className="flex items-center justify-between sticky top-0 z-10 ">
+                        <div>
+                            <h2 className="text-xl font-semibold mb-1">Manage Projects</h2>
+                            <p className="text-gray-500 text-sm">Add, edit, or remove your portfolio projects</p>
                         </div>
-                        <button className="flex items-center bg-black text-white py-2 px-2 rounded-md gap-2 pl-2">
-                            <Plus className="w-4 h-5 " />
+                        <button
+                            onClick={() => setIsOpen(true)}
+                            className="flex items-center bg-black text-white py-2 px-2 rounded-md gap-2 pl-2"
+                        >
+                            <Plus className="w-4 h-5" />
                             <h1>Add Project</h1>
                         </button>
                     </div>
 
-                    <div className="shadow-xs border border-gray-200 p-4 rounded-md flex justify-between items-center">
-                        <div className="">
-                            <div className="flex items-center gap-2">
-                                <h1>E-Commerce Platform</h1>
-                                <span className="rounded-xl px-1 font-bold text-sm bg-black text-white">Published</span>
-                            </div>
-                            <div className="flex flex-wrap gap-2 mt-2">
-                                {stacks.map((tech, index) => (
-                                    <span
-                                        key={index}
-                                        className="border text-gray-900 text-sm px-3  rounded-full"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <button className="border font-bold hover:bg-gray-200 border-gray-400 rounded-md px-2 py-1">
-                                Edit
-                            </button>
-                            <button className="hover:bg-gray-200 p-2 rounded-md">
-                                <Trash2 className="w-4 h-4  text-red-600" />
-                            </button>
-                        </div>
+                    {/* Scrollable content */}
+                    <div className="flex-1 overflow-auto flex flex-col gap-4 mt-8">
+                        {projects.length === 0 ? (
+                            <p className="text-black text-center py-10  flex justify-center items-center h-[400px]">No projects</p>
+                        ) : projects.map((item, index) => (
+                            <div
+                                key={index}
+                                className="shadow-xs border border-gray-200 p-4 rounded-md flex justify-between items-center"
+                            >
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <h1>{item.nameproject}</h1>
+                                        <span className="rounded-xl px-1 font-bold text-sm bg-black text-white">Published</span>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2 mt-2">
+                                        {item.stack.map((tech, idx) => (
+                                            <span key={idx} className="border text-gray-900 text-sm px-3 rounded-full">
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
 
+                                <div className="flex items-center gap-4">
+                                    <button onClick={() => {
+                                        setIsOpen(true)
+                                        setEdit(item)
+                                    }} className="border font-bold hover:bg-gray-200 border-gray-400 rounded-md px-2 py-1">
+                                        Edit
+                                    </button>
+                                    <button className="hover:bg-gray-200 p-2 rounded-md" onClick={() => handleDeleteProject(item.id)}>
+                                        <Trash2 className="w-4 h-4 text-red-600" />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
                 </div>
             </div>
+            <SkillsManagement />
+            <SiteSettings />
 
 
 

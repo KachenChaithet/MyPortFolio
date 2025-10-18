@@ -12,18 +12,18 @@ const LoginPage = ({ onBack, loginSucess }) => {
 
     const handleLogin = async () => {
         const payload = {
-            username,
-            password
+            username: username.trim(),
+            password: password.trim()
         }
         try {
             const res = await axios.post('http://localhost:5000/api/login', payload)
-            if (res.data.message) {
+            if (res.data && res.data.token) {
                 toast.success(res.data.message || "Login successful")
                 setData(res.data)
                 localStorage.setItem("token", res.data.token)
                 setTimeout(() => {
                     loginSucess()
-                }, 200) 
+                }, 200)
             } else {
                 toast.error(res.data.message)
             }

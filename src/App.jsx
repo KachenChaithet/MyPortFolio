@@ -29,14 +29,18 @@ function App() {
   }
 
   const handleLogout = () => {
+    localStorage.removeItem("token")
     setShowLogin(false)
     setIsAuthenticated(false)
   }
+ 
 
   const handleBack = () => {
     setShowLogin(false)
     setIsAuthenticated(false)
   }
+
+  
 
   if (showLogin && !isAuthenticated) {
 
@@ -44,7 +48,7 @@ function App() {
   }
 
   if (isAuthenticated) {
-    return <AdminPage logout={handleLogout} />
+    return <><AdminPage logout={handleLogout} /><Toaster position="top-right" reverseOrder={false} /> </>
   }
   // ฟังก์ชันเลื่อนไปยังแต่ละ section
   const scrollToSection = (ref) => {
@@ -61,7 +65,6 @@ function App() {
       <div ref={contactRef} className="scroll-mt-12"><Contect /></div>
 
       <Footer />
-      <Toaster position="top-right" reverseOrder={false} />
     </>
   )
 }
