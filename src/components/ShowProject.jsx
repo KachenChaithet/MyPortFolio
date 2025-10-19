@@ -5,7 +5,6 @@ import { ProjectContext } from "../utils/ProjectContext";
 
 const ShowProject = () => {
     const { projects } = useContext(ProjectContext)
-    console.log(projects);
     
     return (
         <div className="w-full flex justify-center flex-col items-center gap-2">

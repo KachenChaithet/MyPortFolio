@@ -1,9 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import skill from './Routers/skillRoter.js'
 import user from './Routers/userRouter.js'
 import login from './Routers/loginRouter.js'
 import project from './Routers/projectRouter.js'
+import profile from './Routers/profileRouter.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -20,6 +22,8 @@ app.use('/upload', express.static(path.join(__dirname, 'uploads')))
 app.use('/project', project)
 app.use('/api', user)
 app.use('/api', login)
+app.use('/skill', skill)
+app.use('/profile', profile)
 
 app.listen(port, () => {
     console.log('server run on port🚀:', port);
