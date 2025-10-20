@@ -9,7 +9,7 @@ import SiteSettings from "./SiteSettings";
 import SkillsManagement from "./SkillsManagement";
 
 const AdminPage = ({ logout }) => {
-  const { projects, fetchProject, profile } = useContext(ProjectContext);
+  const { projects, fetchProject, profile, fetchProfile } = useContext(ProjectContext);
   const [editProject, setEditProject] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const token = localStorage.getItem("token");
@@ -22,7 +22,7 @@ const AdminPage = ({ logout }) => {
     phone: "",
   });
   console.log(formData);
-  
+
 
   useEffect(() => {
     if (profile) {
@@ -60,7 +60,29 @@ const AdminPage = ({ logout }) => {
   };
 
   const handleSubmitProfile = async () => {
-    // TODO: implement profile save
+    const payload = {
+      name: formData.name,
+      title: formData.title,
+      bio: formData.bio,
+      email: formData.email,
+      phone: formData.phone,
+    }
+
+    try {
+      const res = await axios.put('http://localhost:5000/profile/update/1', payload, {
+        headers: {
+          'token': token
+        }
+      })
+
+      if (res.data.message) {
+        toast.success(res.data.message)
+        fetchProfile()
+      }
+
+    } catch (error) {
+      toast.error(res.data.message)
+    }
   };
 
   return (

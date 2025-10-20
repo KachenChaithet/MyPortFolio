@@ -1,6 +1,7 @@
 import { Facebook, Mail, Phone } from "lucide-react"
 import Input from "./Input"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { ProjectContext } from "../utils/ProjectContext"
 
 const Contect = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const Contect = () => {
     subject: '',
     message: '',
   })
+  const { data } = useContext(ProjectContext)
+
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -72,7 +75,7 @@ const Contect = () => {
             <div className="flex flex-col gap-3 mt-4 text-gray-700">
               <div className="flex items-center gap-4">
                 <Mail className="w-6 h-6 text-gray-500" />
-                <span>alex.johnson@example.com</span>
+                <span>{data.email}</span>
               </div>
               <div className="flex items-center gap-4">
                 <Facebook className="w-6 h-6 text-gray-500" />
@@ -80,7 +83,7 @@ const Contect = () => {
               </div>
               <div className="flex items-center gap-4">
                 <Phone className="w-6 h-6 text-gray-500" />
-                <span>063-726-0853</span>
+                <span>{data.phone}</span>
               </div>
             </div>
           </div>

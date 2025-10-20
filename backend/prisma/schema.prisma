@@ -42,6 +42,7 @@ model Skill {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 model Profile {
   id        Int      @id @default(autoincrement())
   name      String
@@ -51,5 +52,14 @@ model Profile {
   phone     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
 
+model SiteSettings {
+  id          Int      @id @default(autoincrement())
+  sitetitle   String
+  githuburl   String
+  linkedinurl String
+  twitterurl  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

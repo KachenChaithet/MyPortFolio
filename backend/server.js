@@ -6,6 +6,7 @@ import user from './Routers/userRouter.js'
 import login from './Routers/loginRouter.js'
 import project from './Routers/projectRouter.js'
 import profile from './Routers/profileRouter.js'
+import sitesetting from './Routers/sitesettingsRouter.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -24,6 +25,7 @@ app.use('/api', user)
 app.use('/api', login)
 app.use('/skill', skill)
 app.use('/profile', profile)
+app.use('/sitesetting', sitesetting)
 
 app.listen(port, () => {
     console.log('server run on port🚀:', port);
