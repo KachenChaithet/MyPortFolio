@@ -16,7 +16,7 @@ dotenv.config()
 const port = process.env.PORT
 const app = express()
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: process.env.uRL_FRONTEND || 'http://localhost:5173/'
 }))
 app.use(express.json())
 app.use('/upload', express.static(path.join(__dirname, 'uploads')))
