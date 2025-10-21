@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react"
 import { ProjectContext } from "../utils/ProjectContext"
 import axios from "axios"
 import toast from "react-hot-toast"
-import { axiosInstance } from "../utils/AxiosInstance"
+import { axiosInstance } from "../utils/AxiosInstance.js"
 import { API_PATHS } from "../utils/apiPath"
 
 const SiteSettings = () => {

@@ -5,7 +5,7 @@ import { useContext, useState } from "react"
 import AddSkill from "./AddSkill"
 import axios from "axios"
 import toast from "react-hot-toast"
-import { axiosInstance } from "../utils/AxiosInstance"
+import { axiosInstance } from "../utils/AxiosInstance.js"
 import { API_PATHS } from "../utils/apiPath"
 
 const SkillsManagement = () => {

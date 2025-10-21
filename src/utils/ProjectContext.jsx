@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
-import { axiosInstance } from './AxiosInstance'
+import { axiosInstance } from './AxiosInstance.js'
 import { API_PATHS } from './apiPath'
 
 export const ProjectContext = createContext()
