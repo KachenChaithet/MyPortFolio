@@ -3,6 +3,8 @@ import { X, Upload } from "lucide-react"
 import axios from "axios"
 import toast from "react-hot-toast"
 import { ProjectContext } from "../utils/ProjectContext"
+import { axiosInstance } from "../utils/AxiosInstance"
+import { API_PATHS } from "../utils/apiPath"
 
 const AddProject = ({ onClose, onSuccess, editData }) => {
   const [formData, setFormData] = useState({
@@ -110,14 +112,14 @@ const AddProject = ({ onClose, onSuccess, editData }) => {
     try {
       let res
       if (editData) {
-        res = await axios.put(`http://localhost:5000/project/update/${editData.id}`, form, {
+        res = await axiosInstance.put(API_PATHS.PROJECT.update(editData.id), form, {
           headers: {
             token,
             "Content-Type": "multipart/form-data"
           }
         })
       } else {
-        res = await axios.post(`http://localhost:5000/project/create`, form, {
+        res = await axiosInstance.post(API_PATHS.PROJECT.create, form, {
           headers: {
             token,
             "Content-Type": "multipart/form-data"

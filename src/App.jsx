@@ -9,6 +9,7 @@ import "./index.css"
 import LoginPage from "./components/LoginPage"
 import AdminPage from "./components/AdminPage"
 import { Toaster } from "react-hot-toast"
+import { BASE_URL } from "./utils/apiPath"
 
 function App() {
   const heroRef = useRef(null)

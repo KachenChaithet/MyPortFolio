@@ -7,6 +7,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import SiteSettings from "./SiteSettings";
 import SkillsManagement from "./SkillsManagement";
+import { axiosInstance } from "../utils/AxiosInstance";
+import { API_PATHS } from "../utils/apiPath";
 
 const AdminPage = ({ logout }) => {
   const { projects, fetchProject, profile, fetchProfile } = useContext(ProjectContext);
@@ -47,7 +49,7 @@ const AdminPage = ({ logout }) => {
 
   const handleDeleteProject = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/project/delete/${id}`, {
+      const res = await axiosInstance.delete(API_PATHS.PROJECT.delete(id), {
         headers: { token },
       });
       if (res.data.message) {
@@ -69,7 +71,7 @@ const AdminPage = ({ logout }) => {
     }
 
     try {
-      const res = await axios.put('http://localhost:5000/profile/update/1', payload, {
+      const res = await axiosInstance.put(API_PATHS.PROFILE.update, payload, {
         headers: {
           'token': token
         }

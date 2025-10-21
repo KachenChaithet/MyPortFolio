@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react"
 import { X } from "lucide-react"
 import axios from "axios"
 import toast from "react-hot-toast"
-import { ProjectContext } from "../utils/ProjectContext"
+import { axiosInstance } from "../utils/AxiosInstance"
+import { API_PATHS } from "../utils/apiPath"
 
 const AddSkill = ({ onClose, onSuccess, editData }) => {
     const [formData, setFormData] = useState({
@@ -66,11 +67,11 @@ const AddSkill = ({ onClose, onSuccess, editData }) => {
         try {
             let res
             if (editData) {
-                res = await axios.put(`http://localhost:5000/skill/update/${editData.id}`, payload, {
+                res = await axiosInstance.put(API_PATHS.SKILL.update(editData.id), payload, {
                     headers: { token }
                 })
             } else {
-                res = await axios.post("http://localhost:5000/skill/create", payload, {
+                res = await axiosInstance.post(API_PATHS.SKILL.create, payload, {
                     headers: { token }
                 })
             }

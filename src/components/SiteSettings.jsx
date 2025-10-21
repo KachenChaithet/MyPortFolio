@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from "react"
 import { ProjectContext } from "../utils/ProjectContext"
 import axios from "axios"
 import toast from "react-hot-toast"
+import { axiosInstance } from "../utils/AxiosInstance"
+import { API_PATHS } from "../utils/apiPath"
 
 const SiteSettings = () => {
     const token = localStorage.getItem('token')
@@ -41,7 +43,7 @@ const SiteSettings = () => {
         }
 
         try {
-            const res = await axios.put('http://localhost:5000/sitesetting/update/1', payload, {
+            const res = await axiosInstance.put(API_PATHS.SITESETTINGS.update(1), payload, {
                 headers: {
                     'token': token
                 }

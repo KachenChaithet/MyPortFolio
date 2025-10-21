@@ -5,6 +5,8 @@ import { useContext, useState } from "react"
 import AddSkill from "./AddSkill"
 import axios from "axios"
 import toast from "react-hot-toast"
+import { axiosInstance } from "../utils/AxiosInstance"
+import { API_PATHS } from "../utils/apiPath"
 
 const SkillsManagement = () => {
     const { skills, fetchSkill } = useContext(ProjectContext)
@@ -16,7 +18,7 @@ const SkillsManagement = () => {
 
     const handleDeleteSkill = async (id) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/skill/delete/${id}`, {
+            const res = await axiosInstance.delete(API_PATHS.SKILL.delete(id), {
                 headers: {
                     'token': token
                 }

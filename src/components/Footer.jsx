@@ -1,13 +1,16 @@
 import { Github, Linkedin, Mail } from "lucide-react"
 import SocialLinks from "./SocialLinks"
+import { useContext } from "react"
+import { ProjectContext } from "../utils/ProjectContext"
 
 const Footer = () => {
+    const { data } = useContext(ProjectContext)
 
     return (
         <div className="mt-10 w-full h-[240px] bg-[#f9f9fa] flex flex-col justify-around px-20 py-8 ">
             <div className="flex justify-between items-center   ">
                 <div className="">
-                    <h1 className="text-xl font-medium">Kachen Chiyathet</h1>
+                    <h1 className="text-xl font-medium">{data.username}</h1>
                     <p className="text-gray-500 text-lg">Building digital experiences with passion</p>
                 </div>
 

@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { Phone } from 'lucide-react'
+import { axiosInstance } from './AxiosInstance'
+import { API_PATHS } from './apiPath'
 
 export const ProjectContext = createContext()
 
@@ -27,7 +29,7 @@ export const ProjectProvider = ({ children }) => {
 
     const fetchProject = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/project/getall')
+            const res = await axiosInstance.get(API_PATHS.PROJECT.getall)
             setProjects(res.data.findAllProject);
 
         } catch (error) {
@@ -37,7 +39,7 @@ export const ProjectProvider = ({ children }) => {
 
     const fetchSkill = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/skill/getall')
+            const res = await axiosInstance.get(API_PATHS.SKILL.getall)
             setSkills(res.data.findallSkill);
 
         } catch (error) {
@@ -47,7 +49,7 @@ export const ProjectProvider = ({ children }) => {
 
     const fetchProfile = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/profile/getall')
+            const res = await axiosInstance.get(API_PATHS.PROFILE.getall)
             const profile = res.data.findAll[0]
             setProfile(profile)
             setData((prev) => ({
@@ -66,7 +68,7 @@ export const ProjectProvider = ({ children }) => {
     }
     const fetchSiteSettings = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/sitesetting/getall')
+            const res = await axiosInstance.get(API_PATHS.SITESETTINGS.getall)
             const sitesettings = res.data.findallsitesettings[0]
             setSiteSettings(sitesettings)
             setData((prev) => ({
@@ -87,6 +89,12 @@ export const ProjectProvider = ({ children }) => {
         fetchProfile()
         fetchSiteSettings()
     }, [])
+
+    useEffect(() => {
+        if (siteSettings && siteSettings.sitetitle) {
+            document.title = siteSettings.sitetitle
+        }
+    }, [siteSettings])
 
     return (
         <ProjectContext.Provider value={{ projects, fetchProject, skills, fetchSkill, profile, fetchProfile, siteSettings, fetchSiteSettings, data }}>
