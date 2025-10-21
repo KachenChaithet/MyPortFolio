@@ -1,6 +1,4 @@
 import { createContext, useState, useEffect } from 'react'
-import axios from 'axios'
-import { Phone } from 'lucide-react'
 import { axiosInstance } from './AxiosInstance'
 import { API_PATHS } from './apiPath'
 
